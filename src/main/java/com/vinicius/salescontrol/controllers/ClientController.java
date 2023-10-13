@@ -1,7 +1,7 @@
 package com.vinicius.salescontrol.controllers;
 
-import com.vinicius.salescontrol.dto.ContactDTO;
-import com.vinicius.salescontrol.services.ContactService;
+import com.vinicius.salescontrol.dto.ClientDTO;
+import com.vinicius.salescontrol.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,33 +13,33 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/contacts")
-public class ContactController {
+@RequestMapping(value = "/clients")
+public class ClientController {
 
     @Autowired
-    ContactService service;
+    ClientService service;
 
     @GetMapping
-    public ResponseEntity<Page<ContactDTO>> findAll(Pageable pageable) {
-        Page<ContactDTO> dto = service.findAll(pageable);
+    public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
+        Page<ClientDTO> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ContactDTO> findById(@PathVariable Long id) {
-        ContactDTO dto = service.findById(id);
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
+        ClientDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<ContactDTO> insert(@Valid @RequestBody ContactDTO dto) {
+    public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ContactDTO> update(@PathVariable Long id, @Valid @RequestBody ContactDTO dto) {
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }

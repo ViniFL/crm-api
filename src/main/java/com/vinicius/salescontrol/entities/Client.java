@@ -2,9 +2,11 @@ package com.vinicius.salescontrol.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "tb_contact")
-public class Contact {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +21,10 @@ public class Contact {
     @Column(unique = true)
     private String cellphone;
 
-    public Contact() {
+    public Client() {
     }
 
-    public Contact(Long id, String name, String email, String cellphone) {
+    public Client(Long id, String name, String email, String cellphone) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -59,5 +61,20 @@ public class Contact {
 
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        return Objects.equals(id, client.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

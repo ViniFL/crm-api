@@ -1,8 +1,8 @@
 package com.vinicius.salescontrol.services;
 
-import com.vinicius.salescontrol.dto.ContactDTO;
-import com.vinicius.salescontrol.entities.Contact;
-import com.vinicius.salescontrol.repositories.ContactRepository;
+import com.vinicius.salescontrol.dto.ClientDTO;
+import com.vinicius.salescontrol.entities.Client;
+import com.vinicius.salescontrol.repositories.ClientRepository;
 import com.vinicius.salescontrol.services.exceptions.DatabaseException;
 import com.vinicius.salescontrol.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,38 +15,38 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ContactService {
+public class ClientService {
 
     @Autowired
-    private ContactRepository repository;
+    private ClientRepository repository;
 
     @Transactional(readOnly = true)
-    public ContactDTO findById(Long id) {
-        Contact contact = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
-        return new ContactDTO(contact);
+    public Page<ClientDTO> findAll(Pageable pageable) {
+        Page<Client> result = repository.findAll(pageable);
+        return result.map(x -> new ClientDTO(x));
     }
 
     @Transactional(readOnly = true)
-    public Page<ContactDTO> findAll(Pageable pageable) {
-        Page<Contact> result = repository.findAll(pageable);
-        return result.map(x -> new ContactDTO(x));
+    public ClientDTO findById(Long id) {
+        Client client = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
+        return new ClientDTO(client);
     }
 
     @Transactional
-    public ContactDTO insert(ContactDTO dto) {
-        Contact entity = new Contact();
+    public ClientDTO insert(ClientDTO dto) {
+        Client entity = new Client();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
-        return new ContactDTO();
+        return new ClientDTO();
     }
 
     @Transactional
-    public ContactDTO update(Long id, ContactDTO dto) {
+    public ClientDTO update(Long id, ClientDTO dto) {
         try{
-            Contact entity = repository.getReferenceById(id);
+            Client entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new ContactDTO();
+            return new ClientDTO();
         }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
@@ -66,7 +66,7 @@ public class ContactService {
         }
     }
 
-    private void copyDtoToEntity(ContactDTO dto, Contact entity) {
+    private void copyDtoToEntity(ClientDTO dto, Client entity) {
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
         entity.setCellphone(dto.getCellphone());

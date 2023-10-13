@@ -1,10 +1,10 @@
 package com.vinicius.salescontrol.dto;
 
-import com.vinicius.salescontrol.entities.Contact;
+import com.vinicius.salescontrol.entities.Client;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class ContactDTO {
+public class ClientDTO {
 
     private Long id;
 
@@ -20,17 +20,17 @@ public class ContactDTO {
     @NotBlank(message = "Cliente precisa ter número de contato")
     private String cellphone;
 
-    public ContactDTO() {
+    public ClientDTO() {
     }
 
-    public ContactDTO(Long id, String name, String email, String cellphone) {
+    public ClientDTO(Long id, String name, String email, String cellphone) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cellphone = cellphone;
     }
 
-    public ContactDTO(Contact entity) {
+    public ClientDTO(Client entity) {
         id = entity.getId();
         name = entity.getName();
         email = entity.getEmail();
