@@ -1,11 +1,20 @@
 package com.vinicius.salescontrol.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import java.util.Objects;
+import java.util.List;
 
 @Entity
-@Table(name = "tb_client")
+@Table(name = "tb_clients")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Client {
 
     @Id
@@ -15,66 +24,14 @@ public class Client {
     @Column(unique = true)
     private String name;
 
+    @Email
     @Column(unique = true)
     private String email;
 
     @Column(unique = true)
     private String cellphone;
 
-    public Client() {
-    }
+    @OneToMany(mappedBy = "saleMade")
+    private List<SaleMade> madeSales;
 
-    public Client(Long id, String name, String email, String cellphone) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.cellphone = cellphone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCellphone() {
-        return cellphone;
-    }
-
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Client client = (Client) o;
-
-        return Objects.equals(id, client.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
 }

@@ -6,31 +6,28 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_sale_made")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User {
+public class SaleMade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String name;
-    @Column(unique = true)
-    private String email;
-    private String password;
+    private BigDecimal totalValue;
+    private BigDecimal averbatedValue;
 
-    @OneToMany(mappedBy = "seller")
-    private List<Client> sellerClients;
+    @ManyToOne
+    @JoinColumn(name = "")
+    private User seller;
 
-    @OneToMany(mappedBy = "saleMade")
-    private List<SaleMade> madeSales;
-
+    @ManyToOne
+    @JoinColumn(name = "")
+    private Client client;
 }
