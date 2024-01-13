@@ -2,10 +2,7 @@ package com.vinicius.salescontrol.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -31,7 +28,10 @@ public class Client {
     @Column(unique = true)
     private String cellphone;
 
-    @OneToMany(mappedBy = "saleMade")
-    private List<SaleMade> madeSales;
+    @OneToMany(mappedBy = "client")
+    private List<Sale> madeSales;
+
+    @OneToMany(mappedBy = "seller")
+    private List<User> sellerClients;
 
 }

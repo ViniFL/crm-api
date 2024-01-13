@@ -1,10 +1,7 @@
 package com.vinicius.salescontrol.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class User {
     @OneToMany(mappedBy = "seller")
     private List<Client> sellerClients;
 
-    @OneToMany(mappedBy = "saleMade")
-    private List<SaleMade> madeSales;
+    @OneToMany(mappedBy = "seller_id")
+    private List<Sale> madeSales;
 
 }

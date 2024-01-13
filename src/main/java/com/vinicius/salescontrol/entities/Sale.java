@@ -1,20 +1,18 @@
 package com.vinicius.salescontrol.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_sale_made")
+@Table(name = "tb_sale")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class SaleMade {
+public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +21,13 @@ public class SaleMade {
     private BigDecimal totalValue;
     private BigDecimal averbatedValue;
 
+    private LocalDateTime timeStamp;
+
     @ManyToOne
-    @JoinColumn(name = "")
+    @JoinColumn(name = "seller_id")
     private User seller;
 
     @ManyToOne
-    @JoinColumn(name = "")
+    @JoinColumn(name = "client_id")
     private Client client;
 }
