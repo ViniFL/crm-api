@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_sale")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -21,7 +22,8 @@ public class Sale {
     private BigDecimal totalValue;
     private BigDecimal averbatedValue;
 
-    private LocalDateTime timeStamp;
+    @Column(name = "sale_date")
+    private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "seller_id")

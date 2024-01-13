@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface SaleRepository extends JpaRepository<Sale, Long> {
-    Optional<Sale> findSaleByDate(LocalDateTime timeStamp);
+    Optional<Sale> findSaleByDate(LocalDateTime date);
 }

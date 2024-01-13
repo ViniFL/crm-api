@@ -8,7 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_users")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -25,9 +26,8 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "seller")
-    private List<Client> sellerClients;
+    private List<Client> clients;
 
-    @OneToMany(mappedBy = "seller_id")
-    private List<Sale> madeSales;
-
+    @OneToMany(mappedBy = "seller")
+    private List<Sale> sales;
 }
