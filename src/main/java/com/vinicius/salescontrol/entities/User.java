@@ -1,5 +1,6 @@
 package com.vinicius.salescontrol.entities;
 
+import com.vinicius.salescontrol.entities.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,9 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     @OneToMany(mappedBy = "seller")
     private List<Client> clients;
