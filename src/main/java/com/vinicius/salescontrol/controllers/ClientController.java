@@ -31,6 +31,12 @@ public class ClientController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<ClientDTO> findClientByName(@PathVariable String name) {
+        ClientDTO dto = service.findClientByName(name);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping
     public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO dto) {
         dto = service.insert(dto);

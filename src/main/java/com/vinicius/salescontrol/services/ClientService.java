@@ -32,6 +32,12 @@ public class ClientService {
         return new ClientDTO(client);
     }
 
+    @Transactional(readOnly = true)
+    public ClientDTO findClientByName(String name) {
+        Client client = repository.findClientByName(name).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
+        return new ClientDTO(client);
+    }
+
     @Transactional
     public ClientDTO insert(ClientDTO dto) {
         Client entity = new Client();
